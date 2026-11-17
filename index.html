@@ -1,389 +1,722 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#102a25">
-  <title> وزاره العدل</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f2d2a" />
+  <title>بوابة التقديم | وزارة العدل</title>
   <style>
     :root {
-      --green: #143a32;
-      --green-light: #1d5145;
-      --gold: #c9a45c;
-      --cream: #f7f5ef;
-      --text: #20302b;
-      --muted: #718078;
-      --white: #fff;
+      --bg: #f5f2ea;
+      --bg-soft: #efe9db;
+      --panel: #ffffff;
+      --panel-alt: #f8f5f0;
+      --primary: #0f2d2a;
+      --primary-2: #183f39;
+      --accent: #c7a35c;
+      --accent-soft: #e8d7a8;
+      --text: #1d2a27;
+      --muted: #66736f;
+      --line: #e4dfd4;
+      --success: #1c6e4a;
+      --success-bg: #e9f7ee;
+      --warning: #b77a2a;
+      --warning-bg: #fff3dc;
+      --shadow: rgba(18, 35, 31, 0.08);
+      --loader-bg: linear-gradient(135deg, #0f2d2a 0%, #183f39 100%);
+    }
+
+    body[data-theme="dark"] {
+      --bg: #111a1a;
+      --bg-soft: #1a2524;
+      --panel: #1d2a2a;
+      --panel-alt: #162222;
+      --primary: #e7d8b4;
+      --primary-2: #f0e3c4;
+      --accent: #d4b06d;
+      --accent-soft: rgba(212, 176, 109, 0.18);
+      --text: #edf4ef;
+      --muted: #b9c9c4;
+      --line: rgba(255,255,255,0.08);
+      --success: #7bd6a7;
+      --success-bg: rgba(34, 129, 81, 0.15);
+      --warning: #f3d08a;
+      --warning-bg: rgba(202, 144, 49, 0.15);
+      --shadow: rgba(0, 0, 0, 0.25);
+      --loader-bg: linear-gradient(135deg, #0b1717 0%, #1c2c2a 100%);
     }
 
     * { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
-      color: var(--text);
-      background: var(--cream);
       font-family: Tahoma, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    a { color: inherit; }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
 
-    /* شاشة التحميل */
     .loader {
       position: fixed;
       inset: 0;
-      z-index: 10;
+      z-index: 999;
       display: grid;
-      place-content: center;
-      justify-items: center;
-      gap: 18px;
-      color: var(--white);
-      background:
-        radial-gradient(ellipse at 50% 40%, #245447 0, transparent 55%),
-        var(--green);
-      transition: opacity .55s ease, visibility .55s ease;
+      place-items: center;
+      text-align: center;
+      background: var(--loader-bg);
+      color: #fff;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
     }
 
     .loader.hidden {
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
     }
 
-    .loader-mark {
-      width: 84px;
-      height: 84px;
-      color: var(--gold);
-      animation: spin 2.2s linear infinite;
+    .loader-spinner {
+      width: 88px;
+      height: 88px;
+      border: 5px solid rgba(255,255,255,0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1.4s linear infinite;
+      margin-bottom: 20px;
     }
 
-    .loader-title { margin: 0; font-size: 1.25rem; font-weight: 700; }
-    .loader-subtitle { margin: -10px 0 0; color: #d3ded8; font-size: .9rem; }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .site { min-height: 100vh; }
-
-    .topbar {
-      color: var(--white);
-      background: var(--green);
-      border-bottom: 1px solid rgb(255 255 255 / 10%);
-    }
-
-    .nav {
-      width: min(1120px, calc(100% - 40px));
-      min-height: 78px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--white);
-      text-decoration: none;
+    .loader-title {
+      margin: 0;
+      font-size: 1.5rem;
       font-weight: 700;
     }
 
-    .brand-mark { width: 38px; height: 38px; color: var(--gold); }
+    .loader-subtitle {
+      margin: 8px 0 0;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.92rem;
+    }
 
-    .nav-links {
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(15, 45, 42, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .site-header .container {
       display: flex;
-      gap: 28px;
       align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 76px;
     }
 
-    .nav-links a {
-      color: #e4ebe7;
-      text-decoration: none;
-      font-size: .94rem;
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.05rem;
     }
 
-    .nav-links a:hover { color: var(--gold); }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      color: var(--accent);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.94rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav a:hover { color: var(--accent); }
+
+    .theme-toggle {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.12);
+    }
 
     .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+      color: #fff;
+      padding: 76px 0 84px;
       position: relative;
       overflow: hidden;
-      padding: 88px 20px 96px;
-      color: var(--white);
-      background:
-        radial-gradient(ellipse at 85% 20%, rgb(201 164 92 / 16%), transparent 34%),
-        linear-gradient(135deg, var(--green), var(--green-light));
     }
 
+    .hero::before,
     .hero::after {
       content: "";
       position: absolute;
-      width: 330px;
-      height: 330px;
-      left: -140px;
-      bottom: -210px;
-      border: 1px solid rgb(255 255 255 / 12%);
       border-radius: 50%;
-      box-shadow: 0 0 0 34px rgb(255 255 255 / 3%), 0 0 0 68px rgb(255 255 255 / 2%);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .hero-content, main {
-      width: min(1000px, calc(100% - 40px));
-      margin-inline: auto;
+    .hero::before {
+      width: 380px;
+      height: 380px;
+      right: -120px;
+      bottom: -180px;
+    }
+
+    .hero::after {
+      width: 220px;
+      height: 220px;
+      left: 10%;
+      top: -70px;
+      opacity: 0.4;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      color: #e5c987;
-      font-size: .9rem;
+      gap: 10px;
+      color: var(--accent-soft);
       font-weight: 700;
+      letter-spacing: 0.02em;
+      font-size: 0.9rem;
     }
 
     .eyebrow::before {
       content: "";
-      width: 22px;
+      display: inline-block;
+      width: 24px;
       height: 2px;
-      background: var(--gold);
+      background: var(--accent);
+      border-radius: 3px;
     }
 
     h1 {
+      margin: 18px 0 14px;
+      line-height: 1.4;
+      font-size: clamp(2.1rem, 4vw, 3.7rem);
       max-width: 700px;
-      margin: 20px 0 14px;
-      font-size: clamp(2.1rem, 5vw, 3.6rem);
-      line-height: 1.35;
     }
 
-    .hero p {
-      max-width: 620px;
+    .hero-copy {
       margin: 0;
-      color: #d7e2dc;
-      font-size: 1.08rem;
+      max-width: 620px;
+      color: rgba(255,255,255,0.82);
       line-height: 1.9;
+      font-size: 1.08rem;
     }
 
-    .hero-button {
+    .hero-actions {
+      margin-top: 26px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .button {
       display: inline-flex;
-      margin-top: 30px;
-      padding: 13px 22px;
       align-items: center;
-      gap: 9px;
-      color: var(--green);
-      background: var(--gold);
-      border-radius: 8px;
-      text-decoration: none;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
       font-weight: 700;
-      transition: transform .2s, background .2s;
+      transition: transform 0.2s ease, filter 0.2s ease;
     }
 
-    .hero-button:hover { transform: translateY(-2px); background: #d8b872; }
-
-    main { padding-block: 62px 76px; }
-
-    .section-heading {
-      margin-bottom: 26px;
+    .button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.02);
     }
 
-    .section-heading h2 {
+    .button.primary {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    .button.secondary {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+    }
+
+    main {
+      padding: 52px 0 70px;
+    }
+
+    section {
+      margin-top: 38px;
+    }
+
+    .section-head {
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
       margin: 0 0 8px;
-      color: var(--green);
-      font-size: 1.7rem;
+      color: var(--primary);
+      font-size: clamp(1.6rem, 2vw, 2.1rem);
     }
 
-    .section-heading p { margin: 0; color: var(--muted); line-height: 1.8; }
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
 
-    .cards {
+    .cards-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 20px;
     }
 
     .card {
-      padding: 26px;
-      background: var(--white);
-      border: 1px solid #e8e7df;
-      border-radius: 14px;
-      box-shadow: 0 8px 28px rgb(30 45 38 / 5%);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px 20px;
+      box-shadow: 0 14px 30px var(--shadow);
     }
 
     .card-top {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
       gap: 12px;
     }
 
     .card-icon {
-      display: grid;
       width: 48px;
       height: 48px;
-      place-items: center;
-      color: var(--green);
-      background: #edf3ef;
       border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: var(--primary);
+      background: var(--bg-soft);
       font-size: 1.35rem;
     }
 
     .status {
-      padding: 7px 11px;
-      color: #17653f;
-      background: #e7f5eb;
-      border-radius: 30px;
-      font-size: .82rem;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
       font-weight: 700;
       white-space: nowrap;
     }
 
-    .status.closed { color: #68716c; background: #f0f1ef; }
-
-    .card h3 { margin: 20px 0 9px; color: var(--green); font-size: 1.18rem; }
-    .card p { min-height: 50px; margin: 0 0 20px; color: var(--muted); line-height: 1.8; }
-
-    .card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--green);
-      font-weight: 700;
-      text-decoration: none;
+    .status.open {
+      background: var(--success-bg);
+      color: var(--success);
     }
 
-    .card-link:hover { color: #987530; }
+    .status.soon {
+      background: var(--warning-bg);
+      color: var(--warning);
+    }
 
-    .note {
-      margin-top: 24px;
-      padding: 15px 18px;
-      color: #675a3e;
-      background: #f4eddd;
-      border-right: 3px solid var(--gold);
-      border-radius: 5px;
+    .card h3 {
+      margin: 18px 0 10px;
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      margin: 0 0 18px;
+      color: var(--muted);
       line-height: 1.8;
-      font-size: .9rem;
+      min-height: 60px;
     }
 
-    footer {
-      padding: 22px 20px;
-      color: #d7e2dc;
-      background: #102a25;
+    .card .button {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: var(--panel-alt);
+      color: var(--primary);
+    }
+
+    .leaders-grid,
+    .ranks-grid,
+    .positions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .leader-card,
+    .rank-card,
+    .position-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px 18px;
+      box-shadow: 0 10px 22px var(--shadow);
+    }
+
+    .leader-card .avatar,
+    .position-card .avatar {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent-soft), rgba(199,163,92,0.2));
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 14px;
+    }
+
+    .leader-card h3,
+    .rank-card h3,
+    .position-card h3 {
+      margin: 0 0 8px;
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    .leader-card p,
+    .rank-card p,
+    .position-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .phase-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .phase-list li {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .phase-list li span {
+      display: inline-block;
+      min-width: 24px;
+      height: 24px;
+      line-height: 24px;
       text-align: center;
-      font-size: .88rem;
+      border-radius: 50%;
+      background: var(--bg-soft);
+      color: var(--primary);
+      margin-left: 10px;
+      font-size: 0.8rem;
     }
 
-    @media (max-width: 650px) {
-      .nav { width: min(100% - 28px, 1120px); min-height: 68px; }
-      .nav-links { gap: 14px; }
-      .nav-links a { font-size: .82rem; }
-      .hero { padding-block: 64px 72px; }
-      .cards { grid-template-columns: 1fr; }
-      .card p { min-height: auto; }
-      main { padding-block: 46px 58px; }
+    .note-box {
+      margin-top: 26px;
+      padding: 16px 18px;
+      border-right: 4px solid var(--accent);
+      background: var(--warning-bg);
+      color: var(--text);
+      border-radius: 10px;
+      line-height: 1.8;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
+    .footer {
+      background: #0f2d2a;
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+      padding: 24px 18px;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 900px) {
+      .cards-grid,
+      .leaders-grid,
+      .ranks-grid,
+      .positions-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-header .container {
+        min-height: 68px;
+      }
+
+      .nav {
+        gap: 10px;
+      }
+
+      .nav a {
+        font-size: 0.82rem;
+      }
+
+      .cards-grid,
+      .leaders-grid,
+      .ranks-grid,
+      .positions-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 62px 0 72px;
       }
     }
   </style>
 </head>
-<body>
-  <!-- شاشة التحميل -->
-  <div class="loader" id="loader" role="status" aria-live="polite">
-    <svg class="loader-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-      <path d="M32 9v43M20 55h24M16 17h32M32 11l-18 6m18-6 18 6"
-            stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
-      <path d="m14 18-8 17h16l-8-17Zm36 0-8 17h16l-8-17Z"
-            stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
-      <path d="M6 35c1 5 15 5 16 0m20 0c1 5 15 5 16 0"
-            stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-      <path d="M23 52h18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
-    </svg>
+<body data-theme="light">
+  <div class="loader" id="loader" aria-live="polite" aria-label="جاري التحميل">
+    <div class="loader-spinner" aria-hidden="true"></div>
     <p class="loader-title">قيد التحميل</p>
-    <p class="loader-subtitle">نجهّز الصفحة، يرجى الانتظار</p>
+    <p class="loader-subtitle">نجهز الصفحة، يرجى الانتظار...</p>
   </div>
 
-  <div class="site">
-    <header class="topbar">
+  <header class="site-header">
+    <div class="container">
+      <a href="#الرئيسية" class="brand" aria-label="العودة للرئيسية">
+        <svg class="brand-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <path d="M32 9v43M20 55h24M16 17h32M32 11 14 17m18-6 18 6" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+          <path d="m14 18-8 17h16l-8-17Zm36 0-8 17h16l-8-17Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M6 35c1 5 15 5 16 0m20 0c1 5 15 5 16 0M23 52h18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span>بوابة التقديم</span>
+      </a>
+
       <nav class="nav" aria-label="القائمة الرئيسية">
-        <a class="brand" href="#الرئيسية">
-          <svg class="brand-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-            <path d="M32 9v43M20 55h24M16 17h32M32 11 14 17m18-6 18 6"
-                  stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-            <path d="m14 18-8 17h16l-8-17Zm36 0-8 17h16l-8-17Z"
-                  stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M6 35c1 5 15 5 16 0m20 0c1 5 15 5 16 0M23 52h18"
-                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
-          <span>بوابة التقديم</span>
-        </a>
-        <div class="nav-links">
-          <a href="#الرئيسية">الرئيسية</a>
-          <a href="#التقديمات">حالة التقديمات</a>
-        </div>
+        <a href="#الرئيسية">الرئيسية</a>
+        <a href="#التقديمات">التقديمات</a>
+        <a href="#القيادات">القيادات</a>
+        <a href="#الرتب">الرتب</a>
+        <a href="#المناصب">المناصب</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع الليلي/النهاري" title="تبديل الوضع">☀️</button>
       </nav>
-    </header>
+    </div>
+  </header>
 
-    <section class="hero" id="الرئيسية">
-      <div class="hero-content">
-        <span class="eyebrow">الخدمات الإلكترونية</span>
-        <h1>ابدأ طلبك بخطوات واضحة</h1>
-        <p>اطّلع على حالة التقديمات المتاحة، واختر الخدمة المناسبة للانتقال إلى نموذج التقديم.</p>
-        <a class="hero-button" href="#التقديمات">استعرض التقديمات <span aria-hidden="true">←</span></a>
+  <section class="hero" id="الرئيسية">
+    <div class="container">
+      <span class="eyebrow">الخدمات الإلكترونية</span>
+      <h1>ابدأ طلبك بخطوات واضحة ومباشرة</h1>
+      <p class="hero-copy">بوابة إلكترونية للمتقدمين إلى الخدمات القضائية والوظيفية داخل الوزارة، مع عرض التقديمات المتاحة، الرتب، القيادات، والمناصب الرسمية.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#التقديمات">استعرض التقديمات</a>
+        <a class="button secondary" href="#القيادات">عرض القيادات</a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <main id="التقديمات">
-      <div class="section-heading">
-        <h2>حالة التقديمات</h2>
-        <p>التقديمات المتاحة حاليًا والخدمات الأخرى.</p>
-      </div>
+  <main>
+    <div class="container">
+      <section id="التقديمات">
+        <div class="section-head">
+          <h2>حالة التقديمات</h2>
+          <p>يمكنك إضافة الروابط مباشرة في البطاقات أدناه عند توفرها.</p>
+        </div>
 
-      <div class="cards">
-        <article class="card">
-          <div class="card-top">
-            <div class="card-icon" aria-hidden="true">⚖</div>
-            <span class="status">مفتوح</span>
-          </div>
-          <h3>/ تقديم قضيه /<h3>
-          <pالتقديم متاح حاليًا </p>
-          <a class="card-link"
-             href="https://docs.google.com/forms/d/e/1FAIpQLSelJsn19hs3snNmgdvtZGpvlOo286uErJyvPvah_dhSKi1g5Q/viewform"
-             target="_blank" rel="noopener noreferrer">
-            انتقل إلى التقديم <span aria-hidden="true">←</span>
-          </a>
-        </article>
+        <div class="cards-grid">
+          <article class="card">
+            <div class="card-top">
+              <div class="card-icon" aria-hidden="true">⚖️</div>
+              <span class="status open">مفتوح</span>
+            </div>
+            <h3>تقديم محامي</h3>
+            <p>استخدم هذا النموذج عند رغبتك في تقديم طلب لممارسة المهنة في الوزارة.</p>
+            <a class="button" href="PUT_LINK_HERE" target="_blank" rel="noopener noreferrer">اضغط هنا لإضافة الرابط</a>
+          </article>
 
-        <article class="card">
-          <div class="card-top">
-            <div class="card-icon" aria-hidden="true">▤</div>
-            <span class="status closed">قريبًا</span>
-          </div>
-          <h3 تقديم وزاره العدل  </h3>
-          <p>سيتم إتاحة رابط تقديم  عند توفره.</p>
-          <!-- استبدل PUT_CASE_LINK_HERE بالرابط الصحيح، ثم غيّر الحالة إلى مفتوح -->
-          <a class="card-link" href="PUT_CASE_LINK_HERE">
-            تفاصيل الخدمة <span aria-hidden="true">←</span>
-          </a>
-        </article>
-      </div>
+          <article class="card">
+            <div class="card-top">
+              <div class="card-icon" aria-hidden="true">🧑‍⚖️</div>
+              <span class="status soon">قريبًا</span>
+            </div>
+            <h3>تقديم قاضي</h3>
+            <p>سيتم تفعيل الرابط عند توفر الفرصة، ويمكنك استبدال الرابط لاحقًا بسهولة.</p>
+            <a class="button" href="PUT_LINK_HERE" target="_blank" rel="noopener noreferrer">اضغط هنا لإضافة الرابط</a>
+          </article>
 
-      <aside class="note">
-        تنبيه: تأكد من صحة روابط التقديم ومصدرها قبل إدخال أي معلومات شخصية.
-      </aside>
-    </main>
+          <article class="card">
+            <div class="card-top">
+              <div class="card-icon" aria-hidden="true">🏛️</div>
+              <span class="status soon">قريبًا</span>
+            </div>
+            <h3>تقديم وزارة</h3>
+            <p>هذا القسم مخصص للطلبات الوزارية أو التقديمات الرسمية داخل الوزارة.</p>
+            <a class="button" href="PUT_LINK_HERE" target="_blank" rel="noopener noreferrer">اضغط هنا لإضافة الرابط</a>
+          </article>
+        </div>
 
-    <footer>© 2026 بوابة التقديم</footer>
-  </div>
+        <div class="note-box">
+          ملاحظة: استبدل كل عنوان <strong>PUT_LINK_HERE</strong> بالرابط الصحيح فور توفره، ويمكنك تغيير حالة كل بطاقة من <strong>مفتوح</strong> إلى <strong>قريبًا</strong> أو العكس حسب الحاجة.
+        </div>
+      </section>
+
+      <section id="القيادات">
+        <div class="section-head">
+          <h2>القيادات</h2>
+          <p>أسماء القيادات الحالية والمساحات المتاحة للوظائف الشاغرة.</p>
+        </div>
+
+        <div class="leaders-grid">
+          <article class="leader-card">
+            <div class="avatar">أ</div>
+            <h3>أبو عكس المطيري</h3>
+            <p>القيادة الحالية في البوابة، مع تنسيق أولي وتوجيه للمسارات الإدارية والرسمية.</p>
+          </article>
+
+          <article class="leader-card">
+            <div class="avatar">ش</div>
+            <h3>اسم شاغر 1</h3>
+            <p>مكان مخصص لاسم شاغر، يمكنك استبداله لاحقًا باسم الموظف المناسب.</p>
+          </article>
+
+          <article class="leader-card">
+            <div class="avatar">ش</div>
+            <h3>اسم شاغر 2</h3>
+            <p>مكان مخصص لاسم شاغر، ويمكنك إدخاله مباشرة عند توفره.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="الرتب">
+        <div class="section-head">
+          <h2>الرتب</h2>
+          <p>هيكل الرتب المتاحة في النظام الرسمي.</p>
+        </div>
+
+        <div class="ranks-grid">
+          <article class="rank-card">
+            <h3>محامي</h3>
+            <p>الدرجة الأساسية في المسار المهني.</p>
+          </article>
+          <article class="rank-card">
+            <h3>محامي متمكن</h3>
+            <p>مستوى إضافي يبرز الخبرة والتمرس المهني.</p>
+          </article>
+          <article class="rank-card">
+            <h3>محامي متمرس</h3>
+            <p>مستوى يتطلب خبرة عملية أكثر واستقراراً في الأداء.</p>
+          </article>
+          <article class="rank-card">
+            <h3>محامي خبير</h3>
+            <p>مستوى متقدم يمثّل الخبرة القانونية العميقة.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="القضاة">
+        <div class="section-head">
+          <h2>القضاة</h2>
+          <p>السلم الوظيفي للقضاة مع تصنيفات الخبرة والاختصاص.</p>
+        </div>
+
+        <ul class="phase-list">
+          <li><span>1</span> قاضي</li>
+          <li><span>2</span> قاضي متمكن</li>
+          <li><span>3</span> قاضي متمرس</li>
+          <li><span>4</span> قاضي خبير</li>
+          <li><span>5</span> قاضي محترف</li>
+          <li><span>6</span> قاضي محكمة عليا</li>
+        </ul>
+      </section>
+
+      <section id="المناصب">
+        <div class="section-head">
+          <h2>المناصب</h2>
+          <p>هيكل المناصب القيادية في الوزارة.</p>
+        </div>
+
+        <div class="positions-grid">
+          <article class="position-card">
+            <div class="avatar">وز</div>
+            <h3>وزير العدل</h3>
+            <p>المنصب الأول في القيادة العليا للوزارة.</p>
+          </article>
+
+          <article class="position-card">
+            <div class="avatar">ن</div>
+            <h3>نائب وزير العدل</h3>
+            <p>مساعد مباشر في القيادة التنفيذية والتنسيق الإداري.</p>
+          </article>
+
+          <article class="position-card">
+            <div class="avatar">م</div>
+            <h3>مستشار وزير العدل</h3>
+            <p>منصب استشاري يساعد في اتخاذ القرار وتوجيه السياسات.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    © 2026 بوابة التقديم | جميع الحقوق محفوظة
+  </footer>
 
   <script>
-    window.addEventListener("load", () => {
-      const loader = document.getElementById("loader");
-      window.setTimeout(() => {
-        loader.classList.add("hidden");
-        loader.setAttribute("aria-hidden", "true");
+    const loader = document.getElementById('loader');
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme') || 'light';
+
+    function applyTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeToggle.textContent = theme === 'dark' ? '🌙' : '☀️';
+    }
+
+    applyTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(currentTheme);
+    });
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        loader.classList.add('hidden');
       }, 1400);
     });
   </script>
