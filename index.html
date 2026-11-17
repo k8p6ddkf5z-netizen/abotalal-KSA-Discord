@@ -3,512 +3,177 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0f2d2a" />
-  <title</title> وزاره العدل </title>
+  <meta name="theme-color" content="#101513" />
+  <meta name="description" content="بوابة وزارة العدل للخدمات والتقديمات الإلكترونية." />
+  <title>وزارة العدل | البوابة الإلكترونية</title>
   <style>
     :root {
-      --bg: #f5f2ea;
-      --bg-soft: #efe9db;
-      --panel: #ffffff;
-      --panel-alt: #f8f5f0;
-      --primary: #0f2d2a;
-      --primary-2: #183f39;
-      --accent: #c7a35c;
-      --accent-soft: #e8d7a8;
-      --text: #1d2a27;
-      --muted: #66736f;
-      --line: #e4dfd4;
-      --success: #1c6e4a;
-      --success-bg: #e9f7ee;
-      --warning: #b77a2a;
-      --warning-bg: #fff3dc;
-      --shadow: rgba(18, 35, 31, 0.08);
-      --loader-bg: linear-gradient(135deg, #0f2d2a 0%, #183f39 100%);
+      color-scheme: dark;
+      --bg: #101311;
+      --bg-soft: #171b18;
+      --panel: #1c211e;
+      --panel-raised: #222824;
+      --primary: #087c61;
+      --primary-bright: #0c9b76;
+      --accent: #d7b457;
+      --accent-soft: rgba(215, 180, 87, .15);
+      --text: #f4f3ed;
+      --muted: #a7b0aa;
+      --line: rgba(255,255,255,.09);
+      --success: #73d5a5;
+      --success-bg: rgba(36, 155, 98, .16);
+      --warning: #e7c56e;
+      --warning-bg: rgba(215, 180, 87, .13);
+      --shadow: rgba(0,0,0,.28);
+      --loader-bg: linear-gradient(145deg, #101311, #123b30);
     }
-
-    body[data-theme="dark"] {
-      --bg: #111a1a;
-      --bg-soft: #1a2524;
-      --panel: #1d2a2a;
-      --panel-alt: #162222;
-      --primary: #e7d8b4;
-      --primary-2: #f0e3c4;
-      --accent: #d4b06d;
-      --accent-soft: rgba(212, 176, 109, 0.18);
-      --text: #edf4ef;
-      --muted: #b9c9c4;
-      --line: rgba(255,255,255,0.08);
-      --success: #7bd6a7;
-      --success-bg: rgba(34, 129, 81, 0.15);
-      --warning: #f3d08a;
-      --warning-bg: rgba(202, 144, 49, 0.15);
-      --shadow: rgba(0, 0, 0, 0.25);
-      --loader-bg: linear-gradient(135deg, #0b1717 0%, #1c2c2a 100%);
+    body[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f3f2ed;
+      --bg-soft: #eae9e1;
+      --panel: #fff;
+      --panel-raised: #f9f8f3;
+      --primary: #087c61;
+      --primary-bright: #0b916e;
+      --accent: #a98025;
+      --accent-soft: rgba(169,128,37,.12);
+      --text: #202a25;
+      --muted: #65726b;
+      --line: rgba(20,40,30,.12);
+      --success: #18764d;
+      --success-bg: #e6f4eb;
+      --warning: #8d681c;
+      --warning-bg: #f7f0dc;
+      --shadow: rgba(29,48,38,.08);
+      --loader-bg: linear-gradient(145deg, #103a30, #087c61);
     }
-
     * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
     body {
       margin: 0;
       font-family: Tahoma, Arial, sans-serif;
-      background: var(--bg);
+      background-color: var(--bg);
+      background-image: radial-gradient(rgba(215,180,87,.12) 1px, transparent 1px);
+      background-size: 46px 46px;
       color: var(--text);
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: background-color .3s ease, color .3s ease;
     }
-
     a { color: inherit; text-decoration: none; }
     img, svg { display: block; max-width: 100%; }
-
+    .container { width: min(1120px, calc(100% - 36px)); margin-inline: auto; }
     .loader {
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      background: var(--loader-bg);
-      color: #fff;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
+      position: fixed; inset: 0; z-index: 999; display: grid; place-content: center;
+      text-align: center; background: var(--loader-bg); color: #fff;
+      transition: opacity .55s ease, visibility .55s ease;
     }
-
-    .loader.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
+    .loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     .loader-spinner {
-      width: 88px;
-      height: 88px;
-      border: 5px solid rgba(255,255,255,0.2);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 1.4s linear infinite;
-      margin-bottom: 20px;
+      width: 68px; height: 68px; margin: 0 auto 18px; border: 4px solid rgba(255,255,255,.2);
+      border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite;
     }
-
-    .loader-title {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-
-    .loader-subtitle {
-      margin: 8px 0 0;
-      color: rgba(255,255,255,0.8);
-      font-size: 0.92rem;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .container {
-      width: min(1100px, calc(100% - 32px));
-      margin: 0 auto;
-    }
-
+    .loader-title { margin: 0; font-size: 1.35rem; font-weight: 700; }
+    .loader-subtitle { margin: 8px 0 0; color: rgba(255,255,255,.75); font-size: .9rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
     .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(15, 45, 42, 0.96);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: sticky; top: 0; z-index: 20; color: #fff;
+      background: rgba(16,19,17,.91); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.09);
     }
-
-    .site-header .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      min-height: 76px;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      color: #fff;
-      font-weight: 700;
-      font-size: 1.05rem;
-    }
-
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      color: var(--accent);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .nav a {
-      color: rgba(255,255,255,0.85);
-      font-size: 0.94rem;
-      transition: color 0.2s ease;
-    }
-
-    .nav a:hover { color: var(--accent); }
-
+    .site-header .container { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-size: 1.05rem; font-weight: 800; white-space: nowrap; }
+    .brand-mark { width: 38px; height: 38px; color: var(--accent); }
+    .nav { display: flex; align-items: center; gap: clamp(10px, 2vw, 22px); flex-wrap: wrap; }
+    .nav a { color: rgba(255,255,255,.78); font-size: .9rem; transition: color .2s ease; }
+    .nav a:hover { color: #f0d47d; }
     .theme-toggle {
-      appearance: none;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.06);
-      color: #fff;
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      font-size: 1.2rem;
-      transition: transform 0.2s ease, background 0.2s ease;
+      appearance: none; width: 42px; height: 42px; display: grid; place-items: center;
+      border: 1px solid rgba(255,255,255,.18); border-radius: 14px; cursor: pointer;
+      background: rgba(255,255,255,.07); color: #fff; font-size: 1.1rem;
+      transition: transform .2s ease, background .2s ease;
     }
-
-    .theme-toggle:hover {
-      transform: translateY(-1px);
-      background: rgba(255,255,255,0.12);
-    }
-
+    .theme-toggle:hover { transform: translateY(-2px); background: rgba(255,255,255,.14); }
     .hero {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-      color: #fff;
-      padding: 76px 0 84px;
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden; padding: 82px 0 92px; color: #fff;
+      background: radial-gradient(ellipse at 12% 15%, rgba(12,155,118,.35), transparent 38%),
+                  linear-gradient(120deg, #101614 0%, #153b31 58%, #10221c 100%);
+      border-bottom: 3px solid var(--accent);
     }
-
-    .hero::before,
-    .hero::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .hero::before {
-      width: 380px;
-      height: 380px;
-      right: -120px;
-      bottom: -180px;
-    }
-
-    .hero::after {
-      width: 220px;
-      height: 220px;
-      left: 10%;
-      top: -70px;
-      opacity: 0.4;
-    }
-
-    .hero .container {
-      position: relative;
-      z-index: 1;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--accent-soft);
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      font-size: 0.9rem;
-    }
-
-    .eyebrow::before {
-      content: "";
-      display: inline-block;
-      width: 24px;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 3px;
-    }
-
-    h1 {
-      margin: 18px 0 14px;
-      line-height: 1.4;
-      font-size: clamp(2.1rem, 4vw, 3.7rem);
-      max-width: 700px;
-    }
-
-    .hero-copy {
-      margin: 0;
-      max-width: 620px;
-      color: rgba(255,255,255,0.82);
-      line-height: 1.9;
-      font-size: 1.08rem;
-    }
-
-    .hero-actions {
-      margin-top: 26px;
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
+    .hero::before, .hero::after { content: ""; position: absolute; border: 1px solid rgba(255,255,255,.1); border-radius: 50%; pointer-events: none; }
+    .hero::before { width: 430px; height: 430px; left: -150px; top: -225px; }
+    .hero::after { width: 300px; height: 300px; right: -120px; bottom: -180px; }
+    .hero .container { position: relative; z-index: 1; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: #f0d47d; font-weight: 700; font-size: .9rem; }
+    .eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--accent); border-radius: 3px; }
+    h1 { max-width: 740px; margin: 18px 0 14px; font-size: clamp(2.1rem, 5vw, 3.8rem); line-height: 1.38; }
+    .hero-copy { max-width: 660px; margin: 0; color: rgba(255,255,255,.79); line-height: 2; font-size: 1.05rem; }
+    .hero-actions { display: flex; gap: 13px; flex-wrap: wrap; margin-top: 28px; }
     .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-weight: 700;
-      transition: transform 0.2s ease, filter 0.2s ease;
+      min-height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 13px 22px; border: 1px solid transparent; border-radius: 14px;
+      font: inherit; font-weight: 800; text-align: center; cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease, background .2s ease;
     }
-
-    .button:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.02);
+    .button:hover { transform: translateY(-3px); filter: brightness(1.06); box-shadow: 0 12px 24px var(--shadow); }
+    .button:focus-visible, .theme-toggle:focus-visible, .nav a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .button.primary { color: #fff; background: linear-gradient(135deg, #0b9873, #08765d); box-shadow: 0 8px 20px rgba(4,110,81,.22); }
+    .button.secondary { color: #fff; background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); }
+    main { padding: 38px 0 72px; }
+    section { margin-top: 42px; }
+    .section-head { margin-bottom: 21px; }
+    .section-head h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 8px; color: var(--text); font-size: clamp(1.55rem, 3vw, 2rem); }
+    .section-head h2::before { content: ""; width: 5px; height: 28px; border-radius: 5px; background: var(--accent); }
+    .section-head p { margin: 0; color: var(--muted); line-height: 1.8; }
+    .cards-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+    .card, .leader-card, .rank-card, .position-card {
+      position: relative; overflow: hidden; background: var(--panel); border: 1px solid var(--line);
+      border-radius: 20px; padding: 22px; box-shadow: 0 12px 30px var(--shadow);
+      transition: transform .22s ease, border-color .22s ease, background .3s ease;
     }
-
-    .button.primary {
-      background: var(--accent);
-      color: var(--primary);
+    .card:hover, .leader-card:hover, .rank-card:hover, .position-card:hover { transform: translateY(-4px); border-color: rgba(215,180,87,.48); }
+    .card::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: .8; }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .card-icon { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; background: var(--accent-soft); font-size: 1.45rem; }
+    .status { padding: 7px 11px; border-radius: 999px; font-size: .8rem; font-weight: 800; white-space: nowrap; }
+    .status.open { background: var(--success-bg); color: var(--success); }
+    .status.soon { background: var(--warning-bg); color: var(--warning); }
+    .card h3, .leader-card h3, .rank-card h3, .position-card h3 { margin: 17px 0 9px; color: var(--text); font-size: 1.2rem; }
+    .card p, .leader-card p, .rank-card p, .position-card p { margin: 0; color: var(--muted); line-height: 1.9; }
+    .card p { min-height: 54px; margin-bottom: 18px; }
+    .card .button { width: 100%; color: #fff; background: linear-gradient(135deg, #0b9873, #08765d); border-radius: 14px; }
+    .leaders-grid, .ranks-grid, .positions-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 17px; }
+    .leader-card .avatar, .position-card .avatar { width: 58px; height: 58px; display: grid; place-items: center; margin-bottom: 14px; border-radius: 18px; background: linear-gradient(145deg, var(--accent-soft), rgba(8,124,97,.14)); color: var(--accent); font-size: 1.15rem; font-weight: 800; }
+    .leader-card h3, .rank-card h3, .position-card h3 { margin-top: 0; }
+    .rank-card { border-right: 3px solid var(--primary); }
+    .phase-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; list-style: none; padding: 0; margin: 0; }
+    .phase-list li { display: flex; align-items: center; min-height: 58px; padding: 13px 16px; border: 1px solid var(--line); border-radius: 15px; background: var(--panel); color: var(--text); font-weight: 700; }
+    .phase-list li span { display: inline-grid; place-items: center; flex: 0 0 29px; width: 29px; height: 29px; margin-left: 11px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); font-size: .82rem; }
+    .note-box { min-height: 12px; margin-top: 20px; border-right: 3px solid var(--accent); border-radius: 10px; background: var(--warning-bg); color: var(--text); line-height: 1.8; }
+    .footer { margin-top: 20px; padding: 25px 18px; border-top: 2px solid var(--accent); background: #101614; color: rgba(255,255,255,.72); text-align: center; font-size: .9rem; }
+    @media (max-width: 850px) {
+      .leaders-grid, .ranks-grid, .positions-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
     }
-
-    .button.secondary {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: #fff;
-    }
-
-    main {
-      padding: 52px 0 70px;
-    }
-
-    section {
-      margin-top: 38px;
-    }
-
-    .section-head {
-      margin-bottom: 22px;
-    }
-
-    .section-head h2 {
-      margin: 0 0 8px;
-      color: var(--primary);
-      font-size: clamp(1.6rem, 2vw, 2.1rem);
-    }
-
-    .section-head p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 22px 20px;
-      box-shadow: 0 14px 30px var(--shadow);
-    }
-
-    .card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .card-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      color: var(--primary);
-      background: var(--bg-soft);
-      font-size: 1.35rem;
-    }
-
-    .status {
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .status.open {
-      background: var(--success-bg);
-      color: var(--success);
-    }
-
-    .status.soon {
-      background: var(--warning-bg);
-      color: var(--warning);
-    }
-
-    .card h3 {
-      margin: 18px 0 10px;
-      color: var(--primary);
-      font-size: 1.2rem;
-    }
-
-    .card p {
-      margin: 0 0 18px;
-      color: var(--muted);
-      line-height: 1.8;
-      min-height: 60px;
-    }
-
-    .card .button {
-      width: 100%;
-      border: 1px solid var(--line);
-      background: var(--panel-alt);
-      color: var(--primary);
-    }
-
-    .leaders-grid,
-    .ranks-grid,
-    .positions-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .leader-card,
-    .rank-card,
-    .position-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 22px 18px;
-      box-shadow: 0 10px 22px var(--shadow);
-    }
-
-    .leader-card .avatar,
-    .position-card .avatar {
-      width: 62px;
-      height: 62px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--accent-soft), rgba(199,163,92,0.2));
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 1.2rem;
-      margin-bottom: 14px;
-    }
-
-    .leader-card h3,
-    .rank-card h3,
-    .position-card h3 {
-      margin: 0 0 8px;
-      color: var(--primary);
-      font-size: 1.2rem;
-    }
-
-    .leader-card p,
-    .rank-card p,
-    .position-card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .phase-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 12px;
-    }
-
-    .phase-list li {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px 16px;
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .phase-list li span {
-      display: inline-block;
-      min-width: 24px;
-      height: 24px;
-      line-height: 24px;
-      text-align: center;
-      border-radius: 50%;
-      background: var(--bg-soft);
-      color: var(--primary);
-      margin-left: 10px;
-      font-size: 0.8rem;
-    }
-
-    .note-box {
-      margin-top: 26px;
-      padding: 16px 18px;
-      border-right: 4px solid var(--accent);
-      background: var(--warning-bg);
-      color: var(--text);
-      border-radius: 10px;
-      line-height: 1.8;
-    }
-
-    .footer {
-      background: #0f2d2a;
-      color: rgba(255,255,255,0.8);
-      text-align: center;
-      padding: 24px 18px;
-      font-size: 0.88rem;
-    }
-
-    @media (max-width: 900px) {
-      .cards-grid,
-      .leaders-grid,
-      .ranks-grid,
-      .positions-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
     @media (max-width: 640px) {
-      .site-header .container {
-        min-height: 68px;
-      }
-
-      .nav {
-        gap: 10px;
-      }
-
-      .nav a {
-        font-size: 0.82rem;
-      }
-
-      .cards-grid,
-      .leaders-grid,
-      .ranks-grid,
-      .positions-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding: 62px 0 72px;
-      }
+      .container { width: min(100% - 28px, 540px); }
+      .site-header .container { min-height: 68px; gap: 10px; }
+      .brand { font-size: .93rem; gap: 8px; }
+      .brand-mark { width: 32px; height: 32px; }
+      .nav { justify-content: flex-end; gap: 8px 12px; }
+      .nav a { font-size: .77rem; }
+      .theme-toggle { width: 36px; height: 36px; border-radius: 12px; }
+      .hero { padding: 62px 0 70px; }
+      .hero-copy { font-size: .98rem; }
+      main { padding-top: 25px; }
+      .cards-grid, .leaders-grid, .ranks-grid, .positions-grid, .phase-list { grid-template-columns: 1fr; }
+      .card, .leader-card, .rank-card, .position-card { padding: 19px; }
+      .card p { min-height: 0; }
+      .button { min-height: 52px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
     }
   </style>
 </head>
-<body data-theme="light">
+<body data-theme="dark">
   <div class="loader" id="loader" aria-live="polite" aria-label="جاري التحميل">
     <div class="loader-spinner" aria-hidden="true"></div>
     <p class="loader-title">قيد التحميل</p>
@@ -523,9 +188,8 @@
           <path d="m14 18-8 17h16l-8-17Zm36 0-8 17h16l-8-17Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
           <path d="M6 35c1 5 15 5 16 0m20 0c1 5 15 5 16 0M23 52h18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
         </svg>
-        <span> وزاره العدل </span>
+        <span>وزارة العدل</span>
       </a>
-
       <nav class="nav" aria-label="القائمة الرئيسية">
         <a href="#الرئيسية">الرئيسية</a>
         <a href="#التقديمات">التقديمات</a>
@@ -541,7 +205,7 @@
     <div class="container">
       <span class="eyebrow">الخدمات الإلكترونية</span>
       <h1>ابدأ طلبك بخطوات واضحة ومباشرة</h1>
-      <p class="hero-copy">بوابة إلكترونية للمتقدمين إلى الخدمات القضائية والوظيفية داخل الوزارة، مع عرض التقديمات الحالية والهيكل الإداري للمنصب.</p>
+      <p class="hero-copy">بوابة إلكترونية للمتقدمين إلى الخدمات القضائية والوظيفية داخل الوزارة، مع عرض التقديمات والرتب والمناصب في مكان واحد.</p>
       <div class="hero-actions">
         <a class="button primary" href="#التقديمات">استعرض التقديمات</a>
         <a class="button secondary" href="#القيادات">عرض القيادات</a>
@@ -554,179 +218,95 @@
       <section id="التقديمات">
         <div class="section-head">
           <h2>حالة التقديمات</h2>
-          <p>يمكنك إضافة الروابط مباشرة في البطاقات أدناه عند توفرها.</p>
+          <p>اختر الخدمة المناسبة من الأزرار أدناه. تبقى روابط التقديمات كما هي.</p>
         </div>
-
         <div class="cards-grid">
           <article class="card">
-            <div class="card-top">
-              <div class="card-icon" aria-hidden="true">⚖️</div>
-              <span class="status open">مفتوح</span>
-            </div>
-            <h3>تقديم كليه المحاماه </h3>
+            <div class="card-top"><div class="card-icon" aria-hidden="true">⚖️</div><span class="status open">مفتوح</span></div>
+            <h3>تقديم كلية المحاماة</h3>
             <p>استخدم هذا النموذج عند رغبتك في تقديم طلب لممارسة المهنة في الوزارة.</p>
-            <a class="button" href="PUT_LINK_HERE" target="_blank" rel="noopener noreferrer"> مغلق </a>
+            <a class="button" href="PUT_LINK_HERE" target="_blank" rel="noopener noreferrer">مغلق</a>
           </article>
-
           <article class="card">
-            <div class="card-top">
-              <div class="card-icon" aria-hidden="true">🧑‍⚖️</div>
-              <span class="status soon">مفتوح</span>
-            </div>
-            <h3>تقديم كليه القضاه </h3>
-            <p>سيتم تفعيل الرابط عند توفر الفرصة، ويمكنك استبدال الرابط لاحقًا بسهولة.</p>
-            <a class="button" href="https://forms.gle/ts79ja6SzWypwzPD9" target="_blank" rel="noopener noreferrer">تقديم كليه القضاه</a>
+            <div class="card-top"><div class="card-icon" aria-hidden="true">🧑‍���️</div><span class="status soon">مفتوح</span></div>
+            <h3>تقديم كلية القضاة</h3>
+            <p>قدّم طلبك للالتحاق بالمسار القضائي عبر النموذج المخصص.</p>
+            <a class="button" href="https://forms.gle/ts79ja6SzWypwzPD9" target="_blank" rel="noopener noreferrer">تقديم كلية القضاة</a>
           </article>
-
           <article class="card">
-            <div class="card-top">
-              <div class="card-icon" aria-hidden="true">🏛️</div>
-              <span class="status soon">قريبًا</span>
-            </div>
-            <h3>تقديم وزارة العدل </h3>
-            <p>هذا ��لقسم مخصص للطلبات الوزارية أو التقديمات الرسمية داخل الوزارة.</p>
+            <div class="card-top"><div class="card-icon" aria-hidden="true">🏛️</div><span class="status soon">قريبًا</span></div>
+            <h3>تقديم وزارة العدل</h3>
+            <p>هذا القسم مخصص للطلبات الوزارية أو التقديمات الرسمية داخل الوزارة.</p>
             <a class="button" href="PUT_LINK_HERE" target="_blank" rel="noopener noreferrer">اضغط هنا لإضافة الرابط</a>
           </article>
-
           <article class="card">
-            <div class="card-top">
-              <div class="card-icon" aria-hidden="true">📄</div>
-              <span class="status open">مفتوح</span>
-            </div>
+            <div class="card-top"><div class="card-icon" aria-hidden="true">📄</div><span class="status open">مفتوح</span></div>
             <h3>تقديم قضية</h3>
-            <p>للتقديم </p>
+            <p>أرسل طلبك لمتابعة القضية من خلال النموذج الإلكتروني.</p>
             <a class="button" href="https://forms.gle/da4A9e8yv9DZv6TF8" target="_blank" rel="noopener noreferrer">تقديم قضية</a>
           </article>
         </div>
-
-        <div class="note-box">
-         
+        <div class="note-box" aria-hidden="true"></div>
       </section>
 
       <section id="القيادات">
-        <div class="section-head">
-          <h2>القيادات</h2>
-          <p>أسماء القيادات الحالية والمساحات المتاحة للوظائف الشاغرة.</p>
-        </div>
-
+        <div class="section-head"><h2>القيادات</h2><p>أسماء القيادات الحالية والمساحات المتاحة للوظائف الشاغرة.</p></div>
         <div class="leaders-grid">
-          <article class="leader-card">
-            <div class="avatar">أ</div>
-            <h3>أبو عكس المطيري</h3>
-            <p>القيادة الحالية في البوابة، مع تنسيق أولي وتوجيه للمسارات الإدارية والرسمية.</p>
-          </article>
-
-          <article class="leader-card">
-            <div class="avatar">ش</div>
-            <h3>عبدالله الحربي</h3>
-              <p>القيادة الحالية في البوابة، مع تنسيق أولي وتوجيه للمسارات الإدارية والرسم</p>
-          </article>
-
-          <article class="leader-card">
-            <div class="avatar">ش</div>
-            <h3>اسم شاغر 2</h3>
-            <p>مكان مخصص لاسم شاغر، ويمكنك إدخاله مباشرة عند توفره.</p>
-          </article>
+          <article class="leader-card"><div class="avatar">أ</div><h3>أبو عكس المطيري</h3><p>القيادة الحالية في البوابة، مع تنسيق أولي وتوجيه للمسارات الإدارية والرسمية.</p></article>
+          <article class="leader-card"><div class="avatar">ع</div><h3>عبدالله الحربي</h3><p>القيادة الحالية في البوابة، مع تنسيق أولي وتوجيه للمسارات الإدارية والرسمية.</p></article>
+          <article class="leader-card"><div class="avatar">ش</div><h3>اسم شاغر 2</h3><p>مكان مخصص لاسم شاغر، ويمكنك إدخاله مباشرة عند توفره.</p></article>
         </div>
       </section>
 
       <section id="الرتب">
-        <div class="section-head">
-          <h2>الرتب</h2>
-          <p>هيكل الرتب المتاحة في النظام الرسمي.</p>
-        </div>
-
+        <div class="section-head"><h2>الرتب</h2><p>هيكل الرتب المتاحة في النظام الرسمي.</p></div>
         <div class="ranks-grid">
-          <article class="rank-card">
-            <h3>محامي</h3>
-            <p>الدرجة الأساسية في المسار المهني.</p>
-          </article>
-          <article class="rank-card">
-            <h3>محامي متمكن</h3>
-            <p>مستوى إضافي يبرز الخبرة والتمرس المهني.</p>
-          </article>
-          <article class="rank-card">
-            <h3>محامي متمرس</h3>
-            <p>مستوى يتطلب خبرة عملية أكثر واستقراراً في الأداء.</p>
-          </article>
-          <article class="rank-card">
-            <h3>محامي خبير</h3>
-            <p>مستوى متقدم يمثّل الخبرة القانونية العميقة.</p>
-          </article>
+          <article class="rank-card"><h3>محامي</h3><p>الدرجة الأساسية في المسار المهني.</p></article>
+          <article class="rank-card"><h3>محامي متمكن</h3><p>مستوى إضافي يبرز الخبرة والتمرس المهني.</p></article>
+          <article class="rank-card"><h3>محامي متمرس</h3><p>مستوى يتطلب خبرة عملية أكثر واستقراراً في الأداء.</p></article>
+          <article class="rank-card"><h3>محامي خبير</h3><p>مستوى متقدم يمثّل الخبرة القانونية العميقة.</p></article>
         </div>
       </section>
 
       <section id="القضاة">
-        <div class="section-head">
-          <h2>القضاة</h2>
-          <p>السلم الوظيفي للقضاة مع تصنيفات الخبرة والاختصاص.</p>
-        </div>
-
+        <div class="section-head"><h2>القضاة</h2><p>السلم الوظيفي للقضاة مع تصنيفات الخبرة والاختصاص.</p></div>
         <ul class="phase-list">
-          <li><span>1</span> قاضي</li>
-          <li><span>2</span> قاضي متمكن</li>
-          <li><span>3</span> قاضي متمرس</li>
-          <li><span>4</span> قاضي خبير</li>
-          <li><span>5</span> قاضي محترف</li>
-          <li><span>6</span> قاضي محكمة عليا</li>
+          <li><span>1</span>قاضي</li><li><span>2</span>قاضي متمكن</li><li><span>3</span>قاضي متمرس</li>
+          <li><span>4</span>قاضي خبير</li><li><span>5</span>قاضي محترف</li><li><span>6</span>قاضي محكمة عليا</li>
         </ul>
       </section>
 
       <section id="المناصب">
-        <div class="section-head">
-          <h2>المناصب</h2>
-          <p>هيكل المناصب القيادية في الوزارة.</p>
-        </div>
-
+        <div class="section-head"><h2>المناصب</h2><p>هيكل المناصب القيادية في الوزارة.</p></div>
         <div class="positions-grid">
-          <article class="position-card">
-            <div class="avatar">وز</div>
-            <h3>وزير العدل</h3>
-            <p>المنصب الأول في القيادة العليا للوزارة.</p>
-          </article>
-
-          <article class="position-card">
-            <div class="avatar">ن</div>
-            <h3>نائب وزير العدل</h3>
-            <p>مساعد مباشر في القيادة التنفيذية والتنسيق الإداري.</p>
-          </article>
-
-          <article class="position-card">
-            <div class="avatar">م</div>
-            <h3>مستشار وزير العدل</h3>
-            <p>منصب استشاري يساعد في اتخاذ القرار وتوجيه السياسات.</p>
-          </article>
+          <article class="position-card"><div class="avatar">وز</div><h3>وزير العدل</h3><p>المنصب الأول في القيادة العليا للوزارة.</p></article>
+          <article class="position-card"><div class="avatar">ن</div><h3>نائب وزير العدل</h3><p>مساعد مباشر في القيادة التنفيذية والتنسيق الإداري.</p></article>
+          <article class="position-card"><div class="avatar">م</div><h3>مستشار وزير العدل</h3><p>منصب استشاري يساعد في اتخاذ القرار وتوجيه السياسات.</p></article>
         </div>
       </section>
     </div>
   </main>
 
-  <footer class="footer">
-    © 2026 بوابة التقديم | جميع الحقوق محفوظة
-  </footer>
-
+  <footer class="footer">© 2026 بوابة التقديم | جميع الحقوق محفوظة</footer>
   <script>
     const loader = document.getElementById('loader');
     const themeToggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme') || 'dark';
 
     function applyTheme(theme) {
       document.body.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
       themeToggle.textContent = theme === 'dark' ? '🌙' : '☀️';
+      themeToggle.setAttribute('aria-label', theme === 'dark' ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي');
     }
 
     applyTheme(savedTheme);
-
     themeToggle.addEventListener('click', () => {
       const currentTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       applyTheme(currentTheme);
     });
-
     window.addEventListener('load', () => {
-      setTimeout(() => {
-        loader.classList.add('hidden');
-      }, 1400);
+      setTimeout(() => loader.classList.add('hidden'), 900);
     });
   </script>
 </body>
