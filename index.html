@@ -60,6 +60,7 @@
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
     .button { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 20px; border-radius: 12px; background: var(--green); color: #fff; font-weight: 700; }
     .button.secondary { background: transparent; border: 1px solid var(--line); }
+    .button:disabled { width: 100%; border: 1px solid var(--line); background: #383838; color: #b8b8b8; cursor: not-allowed; opacity: .8; }
     main { padding: 24px 0 66px; }
     section { margin-top: 40px; }
     .section-head { margin-bottom: 22px; }
@@ -75,6 +76,7 @@
     .card-icon { font-size: 1.5rem; }
     .status { padding: 6px 11px; border-radius: 999px; background: rgba(45,180,104,.14); color: #75d49a; font-size: .82rem; font-weight: 700; }
     .status.soon { color: #e4c867; background: rgba(215,181,45,.13); }
+    .status.closed { color: #f0a3a3; background: rgba(190,55,55,.16); }
     .card h3 { margin: 18px 0 10px; font-size: 1.25rem; }
     .card p, .rank-card p, .position-card p { margin: 0; color: var(--muted); line-height: 1.9; }
     .card p { min-height: 54px; margin-bottom: 18px; }
@@ -147,9 +149,9 @@
     <section id="التقديمات">
       <div class="section-head"><h2>حالة التقديمات</h2><p>اختر الخدمة المناسبة من الأزرار أدناه.</p></div>
       <div class="cards-grid">
-        <article class="card"><div class="card-top"><span class="card-icon" aria-hidden="true">⚖️</span><span class="status">مفتوح</span></div><h3>تقديم كلية المحاماة</h3><p>قدّم طلبك للانضمام إلى كلية المحاماة.</p><a class="button" href="PUT_LINK_HERE" target="_blank" rel="noopener noreferrer">تقديم الآن</a></article>
+        <article class="card"><div class="card-top"><span class="card-icon" aria-hidden="true">⚖️</span><span class="status closed">مغلق</span></div><h3>تقديم كلية المحاماة</h3><p>قدّم طلبك للانضمام إلى كلية المحاماة.</p><button class="button" type="button" disabled>مغلق</button></article>
         <article class="card"><div class="card-top"><span class="card-icon" aria-hidden="true">🧑‍⚖️</span><span class="status soon">مفتوح</span></div><h3>تقديم كلية القضاء</h3><p>قدّم طلب الالتحاق بالمسار القضائي.</p><a class="button" href="https://forms.gle/ts79ja6SzWypwzPD9" target="_blank" rel="noopener noreferrer">التقديم لكلية القضاء</a></article>
-        <article class="card"><div class="card-top"><span class="card-icon" aria-hidden="true">🏛️</span><span class="status soon">قريبًا</span></div><h3>تقديم وزارة العدل</h3><p>تابع فرص التقديم والانضمام إلى الوزارة.</p><a class="button" href="PUT_LINK_HERE" target="_blank" rel="noopener noreferrer">تقديم الآن</a></article>
+        <article class="card"><div class="card-top"><span class="card-icon" aria-hidden="true">🏛️</span><span class="status closed">مغلق</span></div><h3>تقديم وزارة العدل</h3><p>تابع فرص التقديم والانضمام إلى الوزارة.</p><button class="button" type="button" disabled>مغلق</button></article>
         <article class="card"><div class="card-top"><span class="card-icon" aria-hidden="true">📄</span><span class="status">مفتوح</span></div><h3>تقديم قضية</h3><p>أرسل طلب تسجيل قضية لمراجعته.</p><a class="button" href="https://forms.gle/da4A9e8yv9Daz6TF8" target="_blank" rel="noopener noreferrer">تقديم قضية</a></article>
       </div>
     </section>
@@ -167,7 +169,7 @@
       <div class="section-head"><h2>الرتب</h2><p>هيكل الرتب المتاحة في النظام الرسمي.</p></div>
       <div class="ranks-grid">
         <article class="rank-card"><h3>محامي</h3><p>الدرجة الأساسية في المسار المهني.</p></article>
-        <article class="rank-card"><h3>محامي متمكن</h3><p>مستوى إضافي يبرز الخبرة والتمرس المهني.</p></article>
+        <article class="rank-card"><h3>محامي متمكن</h3><p>مستوى إضافي يبرز الخبرة والتمر�� المهني.</p></article>
         <article class="rank-card"><h3>محامي متمرس</h3><p>مستوى يتطلب خبرة عملية أكثر واستقرارًا في الأداء.</p></article>
         <article class="rank-card"><h3>محامي خبير</h3><p>مستوى متقدم يمثل الخبرة القانونية العميقة.</p></article>
       </div>
