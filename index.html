@@ -1,14 +1,738 @@
-<div class="actions">
-<a class="btn primary" href="
-https://forms.gle/DDB3PyGAnzS1AByS9
-">
-تقديم القضية
-</a>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>abotalalKSA | خدمات قانونية</title>
+  <meta name="description" content="موقع abotalalKSA لتقديم الخدمات القانونية والمعلومات المتعلقة بالمعاملات الرسمية." />
+  <style>
+    :root{
+      --bg:#0b1420;
+      --bg-2:#101d2b;
+      --panel:#122232;
+      --panel-2:#163044;
+      --text:#edf3f9;
+      --muted:#adc1d6;
+      --line:rgba(255,255,255,.08);
+      --gold:#d8b06a;
+      --gold-2:#b98d4c;
+      --green:#6ec5a7;
+      --shadow:0 20px 50px rgba(0,0,0,.28);
+    }
 
-<a class="btn secondary" href="
-https://docs.google.com/forms/d/e/1FAIpQLSeNw9O4Vs1NooBRDZBm7EJeDbVfPo4eT33f6eAqkhFVpYNSTw/viewform?usp=header
-"
-target="_blank" rel="noopener noreferrer">
-تقديم طلب إلى وزارة العدل
-</a>
-</div>
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Tajawal, "Segoe UI", Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(216,176,106,.18), transparent 24%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      color:var(--text);
+      line-height:1.7;
+    }
+
+    img{max-width:100%; display:block}
+    a{text-decoration:none; color:inherit}
+    button,input,textarea{font:inherit}
+
+    .container{
+      width:min(1180px, calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(12px);
+      background:rgba(11,20,32,.72);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height:76px;
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      font-size:1.3rem;
+      letter-spacing:.3px;
+    }
+
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, var(--gold), var(--gold-2));
+      color:#111;
+      font-weight:900;
+      box-shadow:0 10px 22px rgba(216,176,106,.28);
+    }
+
+    .nav-menu{
+      display:flex;
+      align-items:center;
+      gap:24px;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .nav-menu a:hover{color:var(--text)}
+    .nav-cta{
+      padding:12px 18px;
+      border-radius:12px;
+      background:linear-gradient(135deg, var(--gold), var(--gold-2));
+      color:#111;
+      font-weight:800;
+      border:none;
+      box-shadow:0 16px 30px rgba(216,176,106,.25);
+    }
+
+    .hero{
+      padding:72px 0 40px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:36px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      background:rgba(216,176,106,.12);
+      border:1px solid rgba(216,176,106,.35);
+      color:var(--gold);
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:.8rem;
+      margin-bottom:20px;
+    }
+
+    h1{
+      font-size:clamp(2.3rem, 5vw, 4.5rem);
+      line-height:1.2;
+      margin:0;
+      letter-spacing:-.03em;
+    }
+
+    .hero h1 .accent{color:var(--gold)}
+    .lead{
+      font-size:1.05rem;
+      color:var(--muted);
+      margin:18px 0 30px;
+      max-width:620px;
+      line-height:1.9;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:52px;
+      padding:0 24px;
+      border-radius:14px;
+      font-weight:800;
+      border:1px solid transparent;
+      transition:.2s ease;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--gold), var(--gold-2));
+      color:#111;
+      box-shadow:0 18px 32px rgba(216,176,106,.22);
+    }
+
+    .btn-secondary{
+      background:transparent;
+      border-color:var(--line);
+      color:var(--text);
+    }
+
+    .hero-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px;
+      margin-top:28px;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .hero-meta span{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:rgba(255,255,255,.02);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:8px 12px;
+    }
+
+    .badge-dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 12px rgba(110,197,167,.9);
+    }
+
+    .hero-visual{
+      display:flex;
+      justify-content:center;
+    }
+
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .mini-card{
+      width:min(100%, 430px);
+      padding:20px;
+    }
+
+    .mini-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      color:var(--muted);
+      font-size:.8rem;
+      border-bottom:1px solid var(--line);
+      padding-bottom:16px;
+      margin-bottom:18px;
+    }
+
+    .dots{
+      display:flex;
+      gap:8px;
+    }
+
+    .dots span{
+      width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.25);
+    }
+
+    .mini-screen{
+      background:rgba(255,255,255,.02);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px 16px 8px;
+    }
+
+    .sample-bar{
+      height:16px; background:rgba(255,255,255,.06); border-radius:999px;
+      position:relative; overflow:hidden; margin-bottom:14px;
+    }
+
+    .sample-bar::after{
+      content:"";
+      position:absolute; inset:0 auto 0 0;
+      width:62%;
+      background:linear-gradient(135deg, var(--gold), var(--gold-2));
+      border-radius:inherit;
+    }
+
+    .sample-bar.short::after{width:40%}
+    .sample-bar.tiny::after{width:28%}
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:12px;
+      margin-top:8px;
+    }
+
+    .mini-box{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:12px;
+      background:rgba(255,255,255,.025);
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    section{
+      padding:30px 0 60px;
+    }
+
+    .section-head{
+      max-width:700px;
+      margin-bottom:28px;
+    }
+
+    .section-head .kicker{
+      display:inline-block;
+      font-size:.78rem;
+      color:var(--gold);
+      background:rgba(216,176,106,.08);
+      border:1px solid rgba(216,176,106,.3);
+      border-radius:999px;
+      padding:8px 12px;
+      margin-bottom:12px;
+    }
+
+    h2{
+      font-size:clamp(1.8rem, 3vw, 3rem);
+      margin:0 0 8px;
+      line-height:1.3;
+    }
+
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.9;
+    }
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      align-items:stretch;
+    }
+
+    .info-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .stat-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:16px;
+      margin-top:20px;
+    }
+
+    .stat{
+      background:rgba(255,255,255,.02);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 14px;
+      text-align:center;
+    }
+
+    .stat strong{
+      display:block;
+      font-size:1.8rem;
+      color:var(--gold);
+      margin-bottom:8px;
+    }
+
+    .services{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:20px;
+    }
+
+    .service{
+      background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .service-icon{
+      width:52px; height:52px; border-radius:14px; display:grid; place-items:center;
+      background:linear-gradient(135deg, rgba(216,176,106,.18), rgba(216,176,106,.03));
+      color:var(--gold);
+      font-size:1.6rem; margin-bottom:18px;
+    }
+
+    .service h3{
+      margin:0 0 10px; font-size:1.3rem;
+    }
+
+    .service p{
+      margin:0; color:var(--muted); line-height:1.85;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:20px;
+    }
+
+    .step{
+      padding:22px;
+      background:linear-gradient(180deg, rgba(255,255,255,.022), rgba(255,255,255,.012));
+      border:1px solid var(--line);
+      border-radius:18px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .step-num{
+      width:42px; height:42px; border-radius:50%; display:grid; place-items:center;
+      color:#111; font-weight:900; background:linear-gradient(135deg, var(--gold), var(--gold-2));
+      margin-bottom:18px;
+    }
+
+    .step h3{
+      margin:0 0 10px; font-size:1.2rem;
+    }
+
+    .step p{
+      margin:0; color:var(--muted); line-height:1.82;
+    }
+
+    .contact-wrap{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:26px;
+      background:linear-gradient(180deg, rgba(255,255,255,.026), rgba(255,255,255,.015));
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
+
+    .contact-form{
+      display:grid;
+      gap:16px;
+    }
+
+    .field{
+      display:grid;
+      gap:8px;
+    }
+
+    .field label{
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    .field input, .field textarea{
+      width:100%;
+      padding:14px 16px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      color:var(--text);
+      resize:vertical;
+      min-height:48px;
+    }
+
+    .field textarea{min-height:140px}
+
+    .contact-card{
+      background:rgba(255,255,255,.02);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:20px;
+      display:grid;
+      gap:14px;
+      align-content:start;
+    }
+
+    .contact-item{
+      display:flex; align-items:flex-start; gap:12px;
+      color:var(--muted);
+      line-height:1.8;
+    }
+
+    .contact-item strong{color:var(--text)}
+    .icon{
+      width:38px; height:38px; display:grid; place-items:center;
+      background:rgba(216,176,106,.12); border:1px solid rgba(216,176,106,.35);
+      border-radius:12px; color:var(--gold);
+      flex-shrink:0;
+    }
+
+    .site-footer{
+      border-top:1px solid var(--line);
+      padding:22px 0 36px;
+      color:var(--muted);
+      text-align:center;
+      font-size:.9rem;
+    }
+
+    @media (max-width: 900px){
+      .hero-grid, .about-grid, .contact-wrap{
+        grid-template-columns:1fr;
+      }
+      .services, .steps{
+        grid-template-columns:1fr;
+      }
+      .nav{
+        flex-wrap:wrap;
+        justify-content:center;
+        padding:12px 0;
+      }
+      .nav-menu{
+        flex-wrap:wrap;
+        justify-content:center;
+      }
+    }
+
+    @media (max-width: 560px){
+      .container{width:min(100% - 20px, 1180px)}
+      .nav-menu{gap:12px; font-size:.82rem}
+      .hero{padding-top:42px}
+      .hero-actions{flex-direction:column}
+      .btn{width:100%}
+      .stat-grid{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-mark">A</div>
+        <span>abotalal<span style="color:var(--gold)">KSA</span></span>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#home">الرئيسية</a>
+        <a href="#about">من نحن</a>
+        <a href="#services">الخدمات</a>
+        <a href="#steps">الخطوات</a>
+        <a href="#contact">تواصل</a>
+      </nav>
+
+      <a href="#contact" class="nav-cta">تقديم طلب</a>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">مرحباً بكم في abotalalKSA</div>
+          <h1>خدمات <span class="accent">احترافية</span> وموثوقة</h1>
+          <p class="lead">
+            نقدم لك حلولًا تنظيمية ومعلوماتية لتسهيل تقديم الطلبات والتواصل مع الجهات المختصة،
+            مع الالتزام بالوضوح وسهولة الوصول والسرعة في الاستجابة.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">تقديم القضية</a>
+            <a href="#services" class="btn btn-secondary">استكشف الخدمات</a>
+          </div>
+
+          <div class="hero-meta">
+            <span><i class="badge-dot"></i> خدمة موثوقة</span>
+            <span><i class="badge-dot"></i> دعم فني سريع</span>
+            <span><i class="badge-dot"></i> تصميم عربي متجاوب</span>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="panel mini-card">
+            <div class="mini-top">
+              <span>لوحة الخدمات</span>
+              <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <div class="mini-screen">
+              <div class="sample-bar"></div>
+              <div class="sample-bar short"></div>
+              <div class="sample-bar tiny"></div>
+
+              <div class="mini-grid">
+                <div class="mini-box">القضية</div>
+                <div class="mini-box">الطلب</div>
+                <div class="mini-box">المراجعة</div>
+                <div class="mini-box">التبليغ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">من نحن</div>
+          <h2>موقع عربي احترافي يركز على الخدمة والتواصل</h2>
+          <p>
+            نبني حلولًا عملية ومباشرة تساعد العملاء على فهم الخدمات، وتحديد احتياجاتهم،
+            وتقديم طلباتهم بشكل منظم وواضح دون تعقيد.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="info-card">
+            <h3 style="margin-top:0; font-size:1.7rem;">رسالتنا</h3>
+            <p style="color:var(--muted); margin:0;">
+              توفير نُهج واضحة وسهلة الاستخدام لتقديم الخدمات الرسمية والطلبات المتعلقة
+              بالمعاملات المختلفة، مع إبراز المعلومات الأساسية والضرورية في تصميم أنيق وسهل القراءة.
+            </p>
+
+            <div class="stat-grid">
+              <div class="stat">
+                <strong>24/7</strong>
+                <span>تواصل متواصل</span>
+              </div>
+              <div class="stat">
+                <strong>3+</strong>
+                <span>خدمات أساسية</span>
+              </div>
+              <div class="stat">
+                <strong>100%</strong>
+                <span>تصميم عربي</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h3 style="margin-top:0; font-size:1.7rem;">ما الذي نقدمه؟</h3>
+            <p style="color:var(--muted); margin:0;">
+              نعمل على جعل تجربة المستخدم أسهل من خلال تصميم واضح، وتقديم بيانات
+              منظمة، وتسهيل الوصول إلى الخدمات والطلبات في مكان واحد.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">الخدمات</div>
+          <h2>خدماتنا الأساسية</h2>
+          <p>نركز على سهولة الاستخدام، وضوح المحتوى، وتجربة مريحة لكل عميل.</p>
+        </div>
+
+        <div class="services">
+          <article class="service">
+            <div class="service-icon">📄</div>
+            <h3>تقديم القضية</h3>
+            <p>نساعد في توضيح الخطوات اللازمة لتقديم الطلبات بشكل منظم وسهل للفهم.</p>
+          </article>
+
+          <article class="service">
+            <div class="service-icon">⚖️</div>
+            <h3>خدمات قانونية</h3>
+            <p>نبرز المعلومات الأساسية المتعلقة بالقضايا والمعاملات الرسمية بطريقة واضحة وميسرة.</p>
+          </article>
+
+          <article class="service">
+            <div class="service-icon">📞</div>
+            <h3>تواصل مباشر</h3>
+            <p>نضمن وجود وسيلة واضحة للتواصل، مع تصميم احترافي يساعد العميل على الوصول إلى الخدمة بسهولة.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="steps">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">الخطوات</div>
+          <h2>كيف يعمل الموقع؟</h2>
+          <p>بنية بسيطة، واضحة، ومفعلة بشكل يساعد العميل على التفاعل بسهولة.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <h3>تصفح الخدمات</h3>
+            <p>يستطيع الزائر الوصول إلى الأقسام الرئيسية بوضوح وبدون تعقيد.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-num">2</div>
+            <h3>اختيار الخدمة</h3>
+            <p>يختار نوع الطلب أو الخدمة المطلوبة من خلال واجهة نظيفة ومباشرة.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-num">3</div>
+            <h3>إرسال الطلب</h3>
+            <p>يتم إتاحة إمكانية التقديم عبر نموذج مخصص أو رابط لاحقًا حسب احتياجك.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">تواصل</div>
+          <h2>تواصل معنا</h2>
+          <p>إذا كنت تريد بدء مشروع أو تقديم طلب، يمكنك استخدام النموذج أو التواصل المباشر.</p>
+        </div>
+
+        <div class="contact-wrap">
+          <form class="contact-form">
+            <div class="field">
+              <label for="name">الاسم</label>
+              <input id="name" type="text" placeholder="اكتب اسمك الكامل" />
+            </div>
+
+            <div class="field">
+              <label for="email">البريد الإلكتروني</label>
+              <input id="email" type="email" placeholder="example@mail.com" />
+            </div>
+
+            <div class="field">
+              <label for="msg">محتوى الرسالة</label>
+              <textarea id="msg" placeholder="اكتب رسالتك هنا..."></textarea>
+            </div>
+
+            <button type="button" class="btn btn-primary">إرسال</button>
+          </form>
+
+          <div class="contact-card">
+            <div class="contact-item">
+              <div class="icon">📩</div>
+              <div><strong>البريد</strong><br />info@abotalalksa.com</div>
+            </div>
+
+            <div class="contact-item">
+              <div class="icon">📍</div>
+              <div><strong>العنوان</strong><br />الرياض - المملكة العربية السعودية</div>
+            </div>
+
+            <div class="contact-item">
+              <div class="icon">☎️</div>
+              <div><strong>الهاتف</strong><br />+966 5X XXX XXXX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    © 2026 abotalalKSA — جميع الحقوق محفوظة
+  </footer>
+
+</body>
+</html>
